@@ -1,0 +1,43 @@
+body {
+    /* box-sizing: border-box; */
+}
+
+table {
+    width: 400px;
+    height: 400px;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.cell {
+    border: 0.5px solid black;
+    text-align: center;
+    width: 100% !important;
+    /* padding: 5px; */
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.cell:hover {
+    background-color: rgba(255, 0, 0, 0.315);
+    transition: background-color 0.35s ease-in-out
+}
+
+.clicked-cell {
+    background: conic-gradient(from 0deg at 50% 50%, #ececec, #ececec, #ebebeb, #e9e9e9, #e7e7e7, #e5e5e5, #e4e4e4, #e2e2e2, #e0e0e0, #dfdfdf, #dfdfdf);
+    /* pointer-events: none; */
+}
+
+.unflagged {
+    /* pointer-events: all; */
+    visibility: hidden;
+}
