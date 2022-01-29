@@ -123,14 +123,14 @@ function cellClicked(elCell, rowIdx, colIdx, ev) {
     if (gIsHint) {
         if (!gBoard[rowIdx][colIdx].isMarked && !gBoard[rowIdx][colIdx].isShown) {
             console.log(gIsHint)
-            elCell.className += ' clicked-cell'
+            elCell.classList.add('clicked-cell')
             elCell.querySelector('img').classList.remove('hidden')
-            elCell.style.pointerEvents = 'none'
+            elCell.classList.add('disable-cell')
             gIsHint = false
             setTimeout(() => {
                 elCell.className = 'cell'
                 elCell.querySelector('img').classList.add('hidden')
-                elCell.style.pointerEvents = 'all'
+                elCell.classList.remove('disable-cell')
             }, 1000);
             for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
                 if (i < 0 || i > gBoard.length - 1) continue
@@ -139,9 +139,9 @@ function cellClicked(elCell, rowIdx, colIdx, ev) {
                     if (i === rowIdx && j === colIdx) continue
                     if (gBoard[i][j].isShown || gBoard[i][j].isMarked) continue
                     var curCell = document.querySelector(`[data-i='${i}'][data-j='${j}']`)
-                    curCell.className += ' clicked-cell'
+                    curCell.classList.add('clicked-cell')
                     curCell.querySelector('img').classList.remove('hidden')
-                    curCell.style.pointerEvents = 'none'
+                    curCell.classList.add('disable-cell')
                 }
             }
             setTimeout(() => {
@@ -154,7 +154,7 @@ function cellClicked(elCell, rowIdx, colIdx, ev) {
                         var curCell = document.querySelector(`[data-i='${i}'][data-j='${j}']`)
                         curCell.className = 'cell'
                         curCell.querySelector('img').classList.add('hidden')
-                        curCell.style.pointerEvents = 'all'
+                        curCell.classList.remove('disable-cell')
                         document.querySelector('.hint').classList.remove('hint-on')
 
                     }
@@ -311,13 +311,13 @@ function getSafeClick() {
             console.log(elCell.className)
             elCell.className += ' clicked-cell'
             elCell.querySelector('img').classList.remove('hidden')
-            elCell.style.pointerEvents = 'none'
+            elCell.classList.add('disable-cell')
             gSafeClicks--
             document.querySelector('.safe').innerText = 'safe click: ' + gSafeClicks
             setTimeout(() => {
                 elCell.className = 'cell'
                 elCell.querySelector('img').classList.add('hidden')
-                elCell.style.pointerEvents = 'all'
+                elCell.classList.remove('disable-cell')
             }, 1500);
         } else getSafeClick()
     }
