@@ -185,7 +185,7 @@ function cellClicked(elCell, rowIdx, colIdx, ev) {
                 gGame.liveCount--
                     var elLivesModal = document.querySelector('.lives-modal')
                 elLivesModal.innerText = 'Lives: ' + getLives(gGame.liveCount)
-                elLivesModal.innerText += ' Oh! You hit a mine!'
+                elLivesModal.innerText = ' Oh! You hit a mine!'
                 setTimeout(() => {
                     elLivesModal.innerText = 'Lives: ' + getLives(gGame.liveCount)
                 }, 2000)
