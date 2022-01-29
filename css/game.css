@@ -1,19 +1,98 @@
 body {
-    /* box-sizing: border-box; */
+    text-align: center;
+    background-attachment: fixed;
+    background-color: #b5b2b2;
+    background-image: linear-gradient(180deg, #b5b2b2 0%, #484747 50%, #000000 100%);
+    background-attachment: fixed;
+    font-family: "Cabin";
 }
 
 table {
-    width: 400px;
-    height: 400px;
+    width: 350px;
+    height: 350px;
     table-layout: fixed;
-    border-collapse: collapse;
+    border-spacing: 3px;
+    margin: auto;
+}
+
+.easy {
+    background-image: linear-gradient(to right, #1D976C 0%, #93F9B9 51%, #1D976C 100%)
+}
+
+.easy {
+    margin: 5px;
+    padding: 11px 11px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+}
+
+.easy:hover {
+    background-position: right center;
+    /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+
+.medium {
+    background-image: linear-gradient(to right, #F09819 0%, #EDDE5D 51%, #F09819 100%)
+}
+
+.medium {
+    margin: 5px;
+    padding: 11px 11px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+}
+
+.medium:hover {
+    background-position: right center;
+    /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+
+.hard {
+    background-image: linear-gradient(to right, #e52d27 0%, #b31217 51%, #e52d27 100%)
+}
+
+.hard {
+    margin: 5px;
+    padding: 11px 11px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+}
+
+.hard:hover {
+    background-position: right center;
+    /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
 }
 
 .cell {
     border: 0.5px solid black;
+    background-color: rgba(175, 175, 175, 0.164);
     text-align: center;
     width: 100% !important;
-    /* padding: 5px; */
+}
+
+.clicked-mine {
+    background-color: rgb(179, 29, 29);
 }
 
 img {
@@ -33,11 +112,110 @@ img {
 }
 
 .clicked-cell {
-    background: conic-gradient(from 0deg at 50% 50%, #ececec, #ececec, #ebebeb, #e9e9e9, #e7e7e7, #e5e5e5, #e4e4e4, #e2e2e2, #e0e0e0, #dfdfdf, #dfdfdf);
-    /* pointer-events: none; */
+    background: conic-gradient(from 180deg at 50% 50%, #a5a5a5, #a6a6a6, #aaaaaa, #afafaf, #b4b4b4, #b9b9b9, #bdbdbd, #bebebe);
 }
 
 .unflagged {
-    /* pointer-events: all; */
     visibility: hidden;
+}
+
+.smiley {
+    font-size: 35pt;
+    cursor: pointer;
+    width: 90px;
+    margin: auto;
+    margin-bottom: -5px;
+    margin-top: -40px;
+}
+
+.timer {
+    height: 18pt;
+    line-height: 18pt;
+    font-size: 15pt;
+    margin: auto;
+}
+
+button {
+    font-size: 11pt;
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 35pt;
+    margin-top: 0px;
+}
+
+.game-modal,
+.lives-modal {
+    font-size: 30px;
+    color: #ffffff;
+    /* text-shadow: 0px 0px 0 rgb(243, 243, 243), 1px 1px 0 rgb(230, 230, 230), 2px 2px 0 rgb(218, 218, 218), 3px 3px 0 rgb(205, 205, 205), 4px 4px 0 rgb(193, 193, 193), 5px 5px 4px rgba(0, 0, 0, 1), 5px 5px 1px rgba(0, 0, 0, 0.5), 0px 0px 4px rgba(0, 0, 0, .2); */
+}
+
+.game-modal {
+    height: 35px;
+}
+
+.game {
+    border: 10px outset rgb(119, 119, 119);
+    border-radius: 10%;
+    background-color: rgba(0, 0, 0, 0.068);
+    width: 500px;
+    margin: auto;
+}
+
+.safe,
+.hint {
+    background-image: linear-gradient(to right, #1F1C2C 0%, #928DAB 51%, #1F1C2C 100%);
+}
+
+.safe,
+.hint {
+    margin: 5px;
+    padding: 11px 11px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    /* margin-right: 260px; */
+}
+
+.safe {
+    font-size: 10pt;
+}
+
+.safe:hover,
+.hint:hover {
+    background-position: right center;
+    /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+
+.hint-on {
+    background-image: linear-gradient(to right, #fffc00 0%, #ffffff 51%, #fffc00 100%);
+    pointer-events: none;
+}
+
+.hint-on {
+    margin: 5px;
+    padding: 11px 11px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: rgb(0, 0, 0);
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    /* display: block; */
+}
+
+.hint-on:hover {
+    background-position: right center;
+    /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
 }
