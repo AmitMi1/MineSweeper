@@ -25,7 +25,6 @@ function initGame() {
     }
     clearInterval(gGameInterval)
     gBoard = buildBoard()
-        // console.log(gBoard)
     renderBoard()
     document.querySelector('.lives-modal').innerText = 'Lives: ' + getLives(gGame.liveCount)
     document.querySelector('table').style.pointerEvents = 'all'
@@ -122,7 +121,6 @@ function cellClicked(elCell, rowIdx, colIdx, ev) {
     }
     if (gIsHint) {
         if (!gBoard[rowIdx][colIdx].isMarked && !gBoard[rowIdx][colIdx].isShown) {
-            console.log(gIsHint)
             elCell.classList.add('clicked-cell')
             elCell.querySelector('img').classList.remove('hidden')
             elCell.classList.add('disable-cell')
@@ -131,7 +129,7 @@ function cellClicked(elCell, rowIdx, colIdx, ev) {
                 elCell.className = 'cell'
                 elCell.querySelector('img').classList.add('hidden')
                 elCell.classList.remove('disable-cell')
-            }, 1000);
+            }, 1500);
             for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
                 if (i < 0 || i > gBoard.length - 1) continue
                 for (var j = colIdx - 1; j <= colIdx + 1; j++) {
@@ -156,18 +154,16 @@ function cellClicked(elCell, rowIdx, colIdx, ev) {
                         curCell.querySelector('img').classList.add('hidden')
                         curCell.classList.remove('disable-cell')
                         document.querySelector('.hint').classList.remove('hint-on')
-
                     }
                 }
-            }, 1000);
+            }, 1500);
             return
         }
     }
     if (!gIsHint) {
-        // clearTimeout(isHint)
         if (!gBoard[rowIdx][colIdx].isShown) {
             if (ev.button !== 2 && !gBoard[rowIdx][colIdx].isMarked && !gBoard[rowIdx][colIdx].isMine) {
-                elCell.className += ' clicked-cell'
+                elCell.classList.add('clicked-cell')
                 gBoard[rowIdx][colIdx].isShown = true
                 gGame.shownCount++
                     if (gBoard[rowIdx][colIdx].minesAroundCount === 0) {
@@ -178,17 +174,16 @@ function cellClicked(elCell, rowIdx, colIdx, ev) {
                 var elCell = document.querySelector(`[data-i='${rowIdx}'][data-j='${colIdx}']`)
                 gBoard[rowIdx][colIdx].isShown = true
                 gGame.shownCount++
-                    changeSmiley()
-                gBoard[rowIdx][colIdx].isMarked = true
+                    gBoard[rowIdx][colIdx].isMarked = true
                 elCell.classList.add('clicked-mine')
                 elCell.style.pointerEvents = 'none'
                 gGame.liveCount--
                     var elLivesModal = document.querySelector('.lives-modal')
                 elLivesModal.innerText = 'Lives: ' + getLives(gGame.liveCount)
-                elLivesModal.innerText = ' Oh! You hit a mine!'
+                elLivesModal.innerText = 'Oh! You hit a mine!'
                 setTimeout(() => {
                     elLivesModal.innerText = 'Lives: ' + getLives(gGame.liveCount)
-                }, 2000)
+                }, 1000)
             } else if (ev.button === 2 && !gBoard[rowIdx][colIdx].isMarked) {
                 gBoard[rowIdx][colIdx].isMarked = true
                 cellMarked(elCell)
@@ -200,6 +195,7 @@ function cellClicked(elCell, rowIdx, colIdx, ev) {
         }
     }
     checkGameOver()
+    changeSmiley()
 }
 
 function showMines() {
@@ -228,13 +224,11 @@ function cellUnmarked(i, j) {
 function checkGameOver() {
     var elGameModal = document.querySelector('.game-modal')
     if (gGame.liveCount === 0) {
-        clearTimeout(gSmile)
         clearInterval(gGameInterval)
         gGame.isOn = false
         elGameModal.innerText = 'GAME OVER'
         document.querySelector('table').style.pointerEvents = 'none'
         showMines()
-        gElSmiley.innerHTML = '&#129327;'
     }
     for (var i = 0; i < gBoard.length; i++) {
         for (var j = 0; j < gBoard[0].length; j++) {
@@ -246,11 +240,10 @@ function checkGameOver() {
         }
     }
     if (gIsVictory) {
-        clearTimeout(gSmile)
-        gElSmiley.innerHTML = '&#129321;'
         clearInterval(gGameInterval)
         document.querySelector('.game-modal').innerText = 'WINNER'
         document.querySelector('table').style.pointerEvents = 'none'
+        gGame.isOn = false
     }
 }
 
@@ -285,11 +278,22 @@ function setSize(size, mines) {
 }
 
 function changeSmiley() {
-    gElSmiley.innerHTML = '&#129327;'
-    if (gGame.shownCount + gGame.markedCount !== gLevel.SIZE ** 2)
+    var elGameModal = document.querySelector('.game-modal')
+    var elHitModal = document.querySelector('.lives-modal')
+    if (elGameModal.innerText === 'WINNER') {
+        clearTimeout(gSmile)
+        gElSmiley.innerHTML = '&#129321;'
+        return
+    } else if (elGameModal.innerText === 'GAME OVER') {
+        clearTimeout(gSmile)
+        gElSmiley.innerHTML = '&#129327;'
+        return
+    } else if (elHitModal.innerText === 'Oh! You hit a mine!') {
+        gElSmiley.innerHTML = '&#129327;'
         gSmile = setTimeout(() => {
             gElSmiley.innerHTML = '&#128519;'
-        }, 1200);
+        }, 1000);
+    }
 }
 
 function getLives(livesCount) {
@@ -308,8 +312,7 @@ function getSafeClick() {
         var rndCell = gBoard[rndRowIdx][rndColIdx]
         if (!rndCell.isMine && !rndCell.isShown && !rndCell.isMarked) {
             var elCell = document.querySelector([`[data-i='${rndRowIdx}'][data-j='${rndColIdx}']`])
-            console.log(elCell.className)
-            elCell.className += ' clicked-cell'
+            elCell.classList.add('clicked-cell')
             elCell.querySelector('img').classList.remove('hidden')
             elCell.classList.add('disable-cell')
             gSafeClicks--
@@ -320,7 +323,7 @@ function getSafeClick() {
                 elCell.classList.remove('disable-cell')
             }, 1500);
         } else getSafeClick()
-    }
+    } else return
 }
 
 function getHint() {
@@ -332,5 +335,4 @@ function getHint() {
             document.querySelector('.hint').classList.add('hint-on')
         }
     }
-
 }
